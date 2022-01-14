@@ -13,16 +13,9 @@ public class FileDownload {
              FileOutputStream fileOutputStream = new FileOutputStream("pom_tmp.xml")) {
             byte[] dataBuffer = new byte[1024];
             int bytesRead;
-            long speed = 3000;
-            long millis = System.currentTimeMillis();
             while ((bytesRead = in.read(dataBuffer, 0, 1024)) != -1) {
                 fileOutputStream.write(dataBuffer, 0, bytesRead);
-                long current = System.currentTimeMillis();
-                long different = current - millis;
-                millis = current;
-                if (different < speed) {
-                    Thread.sleep(speed - different);
-                }
+                Thread.sleep(1000);
             }
         } catch (IOException e) {
             e.printStackTrace();
