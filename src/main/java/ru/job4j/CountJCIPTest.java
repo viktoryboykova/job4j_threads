@@ -6,9 +6,9 @@ import static org.junit.Assert.assertThat;
 
 public class CountJCIPTest {
     private class ThreadCount extends Thread {
-        private final Count count;
+        private final CountJCIP count;
 
-        private ThreadCount(final Count count) {
+        private ThreadCount(final CountJCIP count) {
             this.count = count;
         }
 
@@ -21,7 +21,7 @@ public class CountJCIPTest {
     @Test
     public void whenExecute2ThreadThen2() throws InterruptedException {
         /* Создаем счетчик. */
-        final Count count = new Count();
+        final CountJCIP count = new CountJCIP();
         /* Создаем нити. */
         Thread first = new ThreadCount(count);
         Thread second = new ThreadCount(count);
