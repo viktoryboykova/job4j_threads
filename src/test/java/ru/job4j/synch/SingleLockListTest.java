@@ -1,6 +1,7 @@
 package ru.job4j.synch;
 
 import org.junit.Test;
+import ru.job4j.synch.SingleLockList;
 
 import java.util.*;
 
