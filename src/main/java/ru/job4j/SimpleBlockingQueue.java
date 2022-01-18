@@ -34,8 +34,12 @@ public class SimpleBlockingQueue<T> {
             this.wait();
         }
         T value = queue.poll();
-        System.out.println("Возвращаю число " + value);
+        System.out.println("Возвращаю " + value);
         notify();
         return value;
+    }
+
+    public boolean isEmpty() {
+        return queue.size() == 0;
     }
 }
