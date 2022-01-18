@@ -28,48 +28,14 @@ public class SimpleBlockingQueue<T> {
         notify();
     }
 
-    public synchronized T poll() {
+    public synchronized T poll() throws InterruptedException {
         while (queue.isEmpty()) {
-            try {
-                System.out.println("Жду пополнения очереди...");
-                this.wait();
-            } catch (InterruptedException e) {
-                Thread.currentThread().interrupt();
-            }
+            System.out.println("Жду пополнения очереди...");
+            this.wait();
         }
         T value = queue.poll();
         System.out.println("Возвращаю число " + value);
         notify();
         return value;
-    }
-
-    public static void main(String[] args) {
-        SimpleBlockingQueue<Integer> simpleBlockingQueue = new SimpleBlockingQueue<>();
-        Thread producer = new Thread(
-                () -> {
-                    for (int i = 1; i <= 100; i++) {
-                        simpleBlockingQueue.offer(i);
-                        try {
-                            Thread.sleep(700);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-        );
-        Thread consumer = new Thread(
-                () -> {
-                    for (int i = 1; i <= 100; i++) {
-                        simpleBlockingQueue.poll();
-                        try {
-                            Thread.sleep(500);
-                        } catch (InterruptedException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-        );
-        producer.start();
-        consumer.start();
     }
 }
