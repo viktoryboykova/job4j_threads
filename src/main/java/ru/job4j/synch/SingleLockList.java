@@ -32,8 +32,6 @@ public class SingleLockList<T> implements Iterable<T> {
     }
 
     private List<T> copy(List<T> list) {
-        List<T> listCopy = new ArrayList<>();
-        listCopy.addAll(list);
-        return listCopy;
+        return new ArrayList<>(list);
     }
 }
