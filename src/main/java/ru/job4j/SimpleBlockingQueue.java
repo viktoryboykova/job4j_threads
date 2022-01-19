@@ -17,29 +17,29 @@ public class SimpleBlockingQueue<T> {
     public synchronized void offer(T value) {
         while (queue.size() >= size) {
             try {
-                System.out.println("Жду освобождение места...");
+                System.out.println(Thread.currentThread().getName() + ": жду освобождение места...");
                 this.wait();
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
         }
         queue.add(value);
-        System.out.println(value + " добавлен");
+        System.out.println(Thread.currentThread().getName() + " добавил " + value);
         notify();
     }
 
     public synchronized T poll() throws InterruptedException {
         while (queue.isEmpty()) {
-            System.out.println("Жду пополнения очереди...");
+            System.out.println(Thread.currentThread().getName() + ": жду пополнения очереди...");
             this.wait();
         }
         T value = queue.poll();
-        System.out.println("Возвращаю " + value);
-        notify();
+//        System.out.println(Thread.currentThread().getName() + " вернул " + value);
+        notifyAll();
         return value;
     }
 
-    public boolean isEmpty() {
+    public synchronized boolean isEmpty() {
         return queue.size() == 0;
     }
 }
