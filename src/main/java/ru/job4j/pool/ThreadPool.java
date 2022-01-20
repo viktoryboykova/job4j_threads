@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ThreadPool {
     private final List<Thread> threads = new LinkedList<>();
-    private final SimpleBlockingQueue<Job> tasks = new SimpleBlockingQueue<>();
+    private final SimpleBlockingQueue<Job> tasks = new SimpleBlockingQueue<>(5);
 
     public ThreadPool() throws InterruptedException {
         int size = Runtime.getRuntime().availableProcessors();
